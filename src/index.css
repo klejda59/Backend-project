@@ -19,7 +19,6 @@ h1, h2, h3 {
   margin: 0;
 }
 
-/* Flexbox utility class */
 .flex {
   display: flex;
 }

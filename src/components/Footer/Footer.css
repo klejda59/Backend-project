@@ -1,7 +1,7 @@
 footer {
     background-color: #f8f8f8;
     border-top: 1px solid #ddd;
-    padding: 20px;
+    padding: 25px;
     text-align: center;
   }
   
@@ -20,13 +20,16 @@ footer {
     font-size: 14px;
     color: #666;
     line-height: 1.4;
+    text-align: center; 
+    width: 100%;
   }
+  
   
   /* Responsive design */
   @media (min-width: 768px) {
     footer div {
       flex-direction: row;
-      justify-content: space-between;
+      justify-content: center;
       gap: 20px;
     }
   
