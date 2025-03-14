@@ -7,7 +7,7 @@ const SearchBar = () => {
   const [searchType, setSearchType] = useState('name');
   const [searchResults, setSearchResults] = useState([]);
   const [loading, setLoading] = useState(false);
-  const [searchPerformed, setSearchPerformed] = useState(false); // New state to track if search was performed
+  const [searchPerformed, setSearchPerformed] = useState(false); 
 
   const handleMealClick = (mealId) => {
     window.location.href = `/meal/${mealId}`;
@@ -34,7 +34,7 @@ const SearchBar = () => {
 
     try {
       setLoading(true);
-      setSearchPerformed(true); // Set searchPerformed to true when search starts
+      setSearchPerformed(true); 
       const response = await axios.get(url);
       setSearchResults(response.data.meals || []);
     } catch (error) {
@@ -86,7 +86,7 @@ const SearchBar = () => {
             </div>
           ))
         ) : (
-          !loading && searchPerformed && ( // Show "No results found" only if a search was performed
+          !loading && searchPerformed && ( 
             <p className="no-results">No results found. Try a different search.</p>
           )
         )}

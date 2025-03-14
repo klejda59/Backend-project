@@ -1,23 +1,11 @@
 import React from 'react';
-/*import { Link } from 'react-router-dom';*/
 import './Navbar.css';
-import '../SearchBar/SearchBar';
 import { useNavigate } from 'react-router-dom';
 import logo from '../../assets/logo.png';
-
-/*const Navbar = () => (
-  <nav style={{ padding: '1rem', backgroundColor: '#f8f8f8', borderBottom: '1px solid #ddd' }}>
-    <Link to="/" style={{ marginRight: '1rem' }}>Home</Link>
-  </nav>
-);
-
-export default Navbar;*/
-
 
 const Navbar = () => {
   const navigate = useNavigate();
 
-  // this can be simplified to
   const handleNavigation = (path, reload = false) => {
     navigate(path);
     if (reload) window.location.reload();
@@ -26,7 +14,7 @@ const Navbar = () => {
   return (
     <nav>
       <button
-      class="logoBtn"
+        className="logoBtn"
         onClick={() => handleNavigation("/", true)}
       >
         <img
@@ -34,18 +22,22 @@ const Navbar = () => {
           alt="Logo"
           width="100"
           height="auto"
-          class="logo"
+          className="logo"
         />
       </button>
       <div>
         <button
-          
           onClick={() => handleNavigation("/", true)}
           aria-label="Go to Home Page"
         >
           Home
         </button>
-      
+        <button
+          onClick={() => handleNavigation("/about", false)}
+          aria-label="About Us Page"
+        >
+          About Us
+        </button>
       </div>
     </nav>
   );
