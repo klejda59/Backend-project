@@ -9,8 +9,8 @@ const FilterComponent = ({ onFilterChange }) => {
   useEffect(() => {
     const fetchCategories = async () => {
       try {
-        const response = await axios.get('https://www.themealdb.com/api/json/v1/1/list.php?c=list');
-        setCategories(response.data.meals.map(cat => cat.strCategory));
+        const response = await axios.get('http://localhost:3000/categories'); // Categories endpoint
+        setCategories(response.data); // Assuming the API returns an array of strings or objects with category names
       } catch (error) {
         console.error('Error fetching categories:', error);
       }

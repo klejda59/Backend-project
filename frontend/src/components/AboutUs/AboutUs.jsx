@@ -19,7 +19,7 @@ const AboutUs = () => {
           <li>Curated recipes from around the world</li>
           <li>Personalized recipe recommendations</li>
           <li>Step-by-step cooking instructions</li>
-          <li>Meal planning and grocery list features</li>
+          <li>recipes planning and grocery list features</li>
           <li>Community-driven recipe sharing</li>
         </ul>
       </section>

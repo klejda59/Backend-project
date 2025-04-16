@@ -12,9 +12,9 @@ const RecipeCard = ({ recipe }) => (
     textAlign: 'center',
     backgroundColor: '#fff'
   }}>
-    <h3>{recipe.strMeal}</h3>
-    <img src={recipe.strMealThumb} alt={recipe.strMeal} style={{ width: '100%', borderRadius: '10px' }} />
-    <Link to={`/meal/${recipe.idMeal}`} style={{ textDecoration: 'none', color: '#007BFF' }}>View Details</Link>
+    <h3>{recipe.recipes}</h3>
+    <img src={recipe.strrecipesThumb} alt={recipe.strrecipes} style={{ width: '100%', borderRadius: '10px' }} />
+    <Link to={`/recipes/${recipe.idrecipes}`} style={{ textDecoration: 'none', color: '#007BFF' }}>View Details</Link>
   </div>
 );
 

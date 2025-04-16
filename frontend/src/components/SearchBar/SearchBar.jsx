@@ -9,34 +9,35 @@ const SearchBar = () => {
   const [loading, setLoading] = useState(false);
   const [searchPerformed, setSearchPerformed] = useState(false); 
 
-  const handleMealClick = (mealId) => {
-    window.location.href = `/meal/${mealId}`;
+  const handlerecipesClick = (recipesId) => {
+    window.location.href = `/recipes/${recipesId}`;
   };
 
   const handleSearch = async (e) => {
     e.preventDefault();
     if (!searchTerm.trim()) return;
 
-    let url;
-    switch (searchType) {
-      case 'name':
-        url = `https://localhost:3000/recipes${searchTerm}`;
-        break;
-      case 'ingredient':
-        url = `https://localhost:3000/recipes${searchTerm}`;
-        break;
-      case 'firstLetter':
-        url = `https://localhost:3000/recipes${searchTerm.charAt(0)}`;
-        break;
-      default:
-        url = `https://localhost:3000/recipes${searchTerm}`;
-    }
+   let url = 'http://localhost:3000/recipes';
+   switch (searchType) {
+    case 'name':
+      url += `?name=${encodeURIComponent(searchTerm)}`;
+      break;
+    case 'ingredient':
+      url += `?ingredient=${encodeURIComponent(searchTerm)}`;
+      break;
+    case 'firstLetter':
+      url += `?firstLetter=${encodeURIComponent(searchTerm.charAt(0))}`;
+      break;
+    default:
+      url += `?name=${encodeURIComponent(searchTerm)}`;
+  }
+
 
     try {
       setLoading(true);
       setSearchPerformed(true); 
       const response = await axios.get(url);
-      setSearchResults(response.data.meals || []);
+      setSearchResults(response.data.recipes || response.data || []);
     } catch (error) {
       console.error('Error fetching search results:', error);
       setSearchResults([]);
@@ -47,13 +48,13 @@ const SearchBar = () => {
 
   return (
     <div className="search-bar">
-      <h2 className="title">Find Your Favorite Meal</h2>
+      <h2 className="title">Find Your Favorite recipes</h2>
       <form onSubmit={handleSearch} className="search-form">
         <input
           type="text"
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
-          placeholder="Type a meal name, ingredient, or letter..."
+          placeholder="Type a recipes name, ingredient, or letter..."
           className="search-input"
         />
         <select
@@ -74,15 +75,15 @@ const SearchBar = () => {
 
       <div className="search-results">
         {searchResults.length > 0 ? (
-          searchResults.map((meal) => (
+          searchResults.map((recipes) => (
             <div 
-              key={meal.idMeal} 
-              className="meal-item" 
-              onClick={() => handleMealClick(meal.idMeal)}
+              key={recipes.idrecipes} 
+              className="recipes-item" 
+              onClick={() => handlerecipesClick(recipes.idrecipes)}
               style={{ cursor: 'pointer' }}
             >
-              <img src={meal.strMealThumb} alt={meal.strMeal} className="meal-image" />
-              <h3 className="meal-title">{meal.strMeal}</h3>
+              <img src={recipes.strrecipesThumb} alt={recipes.strrecipes} className="recipes-image" />
+              <h3 className="recipes-title">{recipes.strrecipes}</h3>
             </div>
           ))
         ) : (

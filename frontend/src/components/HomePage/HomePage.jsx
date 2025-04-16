@@ -5,7 +5,6 @@ import FilterComponent from '../Filter/FilterComponent';
 import './HomePage.css';
 import SearchBar from '../SearchBar/SearchBar';
 
-
 const HomePage = () => {
   const [recipes, setRecipes] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -14,18 +13,16 @@ const HomePage = () => {
 
   const fetchRecipes = useCallback(async () => {
     setLoading(true);
+    setError(null);
     try {
-      let url = 'https://localhost:3000/recipes';
+      // Use HTTP for local development to avoid SSL errors
+      let url = 'http://localhost:3000/recipes';
       if (selectedCategory) {
-        url = `https://localhost:3000/recipes${selectedCategory}`;
+        url = `http://localhost:3000/recipes/${selectedCategory}`;
       }
-      const fetchedRecipes = [];
-      const count = selectedCategory ? 1 : 20;
-      for (let i = 0; i < count; i++) {
-        const response = await axios.get(url);
-        fetchedRecipes.push(...response.data.meals);
-      }
-      setRecipes(fetchedRecipes);
+      const response = await axios.get(url);
+      // Use the correct property name ("recipes")
+      setRecipes(response.data.recipes || []);
     } catch (err) {
       setError('Failed to fetch recipes.');
       console.error(err);
@@ -47,18 +44,19 @@ const HomePage = () => {
 
   return (
     <div className="home-page">
-
-<SearchBar />
+      <SearchBar />
       <FilterComponent 
         onFilterChange={handleFilterChange} 
         selectedCategory={selectedCategory}
       />
       {selectedCategory && (
-        <h2 className="selected-category-title">Recipes in {selectedCategory} Category</h2>
+        <h2 className="selected-category-title">
+          Recipes in {selectedCategory} Category
+        </h2>
       )}
       <div className="recipe-grid">
         {recipes.map(recipe => (
-          <RecipeCard key={recipe.idMeal} recipe={recipe} />
+          <RecipeCard key={recipe.idrecipes} recipe={recipe} />
         ))}
       </div>
     </div>
