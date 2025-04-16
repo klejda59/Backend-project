@@ -104,6 +104,13 @@ router.put('/:id', async (req, res) => {
 
 // Delete a recipe
 router.delete('/:id', async (req, res) => {
+  
+  const { key } = req.query;
+
+  if(key != "supersecret") {
+    return res.status(500).send("You cannot do that"); 
+  }
+  
   try {
     if (!mongoose.Types.ObjectId.isValid(req.params.id)) {
       return res.status(400).json({ error: 'Invalid recipe ID format' });

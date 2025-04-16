@@ -2,6 +2,7 @@ import { useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import './RecipeDetail.css';
 
+
 const RecipeDetail = () => {
   const { id } = useParams();
   const [recipe, setRecipe] = useState(null);

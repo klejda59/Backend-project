@@ -76,7 +76,7 @@ const SearchBar = () => {
       <div className="search-results">
         {searchResults.length > 0 ? (
           searchResults.map((recipes) => (
-            <div 
+            <button 
               key={recipes._id} 
               className="recipes-item" 
               onClick={() => handlerecipesClick(recipes._id)}
@@ -84,7 +84,7 @@ const SearchBar = () => {
             >
               <img src={recipes.strrecipesThumb} alt={recipes.strrecipes} className="recipes-image" />
               <h3 className="recipes-title">{recipes.strrecipes}</h3>
-            </div>
+            </button>
           ))
         ) : (
           !loading && searchPerformed && ( 

@@ -7,6 +7,7 @@ const RecipeModel = require('./models/Recipe');
 const app = express();
 app.use(express.json()); 
 
+
 app.use(cors());
 app.use('/recipes', recipeRoutes) ;
 app.use('/recipes', require('./routes/recipeRoutes'))
