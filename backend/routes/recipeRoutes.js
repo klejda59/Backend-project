@@ -65,9 +65,9 @@ router.get('/search', async (req, res) => {
 });
 
 // Get single recipe by ID
-router.get('/recipes/:id', async (req, res) => {
+router.get('/:id', async (req, res) => {
   try {
-    const { recipeid } = req.params;
+    const { id } = req.params;
   if (!mongoose.Types.ObjectId.isValid(id)) {
       return res.status(400).json({ error: 'Invalid recipe ID format' });
     }

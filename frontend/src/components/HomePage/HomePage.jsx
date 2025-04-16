@@ -15,13 +15,14 @@ const HomePage = () => {
     setLoading(true);
     setError(null);
     try {
-      // Use HTTP for local development to avoid SSL errors
+     
+  
       let url = 'http://localhost:3000/recipes';
       if (selectedCategory) {
         url = `http://localhost:3000/recipes/${selectedCategory}`;
       }
       const response = await axios.get(url);
-      // Use the correct property name ("recipes")
+      
       setRecipes(response.data.recipes || []);
     } catch (err) {
       setError('Failed to fetch recipes.');

@@ -77,9 +77,9 @@ const SearchBar = () => {
         {searchResults.length > 0 ? (
           searchResults.map((recipes) => (
             <div 
-              key={recipes.idrecipes} 
+              key={recipes._id} 
               className="recipes-item" 
-              onClick={() => handlerecipesClick(recipes.idrecipes)}
+              onClick={() => handlerecipesClick(recipes._id)}
               style={{ cursor: 'pointer' }}
             >
               <img src={recipes.strrecipesThumb} alt={recipes.strrecipes} className="recipes-image" />

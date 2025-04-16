@@ -13,7 +13,7 @@ const RecipeDetail = () => {
   useEffect(() => {
     const fetchRecipeDetail = async () => {
       try {
-        const response = await fetch(`http://localhost:3000/recipes/:id${id}`);
+        const response = await fetch(`http://localhost:3000/recipes/${id}`);
         if (!response.ok) {
           throw new Error('Failed to fetch recipe details.');
         }
