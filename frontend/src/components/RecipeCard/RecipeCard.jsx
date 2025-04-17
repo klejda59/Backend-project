@@ -13,7 +13,7 @@ const RecipeCard = ({ recipe }) => (
     backgroundColor: '#fff'
   }}>
     <h3>{recipe.recipes}</h3>
-    <img src={recipe.strrecipesThumb} alt={recipe.strrecipes} style={{ width: '100%', borderRadius: '10px' }} />
+    <img src={recipe.recipesThumb} alt={recipe.recipes} style={{ width: '100%', borderRadius: '10px' }} />
     <Link to={`/recipes/${recipe.idrecipes}`} style={{ textDecoration: 'none', color: '#007BFF' }}>View Details</Link>
   </div>
 );

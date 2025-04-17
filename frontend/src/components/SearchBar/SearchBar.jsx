@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import './SearchBar.css';
 
-const SearchBar = () => {
+const SearchBar = ({ favorites = [], toggleFavorite }) => {
   const [searchTerm, setSearchTerm] = useState('');
   const [searchType, setSearchType] = useState('name');
   const [searchResults, setSearchResults] = useState([]);
@@ -17,21 +17,20 @@ const SearchBar = () => {
     e.preventDefault();
     if (!searchTerm.trim()) return;
 
-   let url = 'http://localhost:3000/recipes';
-   switch (searchType) {
-    case 'name':
-      url += `?name=${encodeURIComponent(searchTerm)}`;
-      break;
-    case 'ingredient':
-      url += `?ingredient=${encodeURIComponent(searchTerm)}`;
-      break;
-    case 'firstLetter':
-      url += `?firstLetter=${encodeURIComponent(searchTerm.charAt(0))}`;
-      break;
-    default:
-      url += `?name=${encodeURIComponent(searchTerm)}`;
-  }
-
+    let url = 'http://localhost:3000/recipes';
+    switch (searchType) {
+      case 'name':
+        url += `?name=${encodeURIComponent(searchTerm)}`;
+        break;
+      case 'ingredient':
+        url += `?ingredient=${encodeURIComponent(searchTerm)}`;
+        break;
+      case 'firstLetter':
+        url += `?firstLetter=${encodeURIComponent(searchTerm.charAt(0))}`;
+        break;
+      default:
+        url += `?name=${encodeURIComponent(searchTerm)}`;
+    }
 
     try {
       setLoading(true);
@@ -75,17 +74,28 @@ const SearchBar = () => {
 
       <div className="search-results">
         {searchResults.length > 0 ? (
-          searchResults.map((recipes) => (
-            <button 
-              key={recipes._id} 
-              className="recipes-item" 
-              onClick={() => handlerecipesClick(recipes._id)}
-              style={{ cursor: 'pointer' }}
-            >
-              <img src={recipes.strrecipesThumb} alt={recipes.strrecipes} className="recipes-image" />
-              <h3 className="recipes-title">{recipes.strrecipes}</h3>
-            </button>
-          ))
+          searchResults.map((recipe) => {
+            const isFavorite = favorites.some(r => r._id === recipe._id);
+            return (
+              <div key={recipe._id} className="recipes-item improved-recipe-card">
+                <button 
+                  onClick={() => handlerecipesClick(recipe._id)}
+                  className="recipe-main-btn"
+                  aria-label={`View details for ${recipe.recipes}`}
+                >
+                  <img src={recipe.recipesThumb} alt={recipe.recipes} className="recipes-image" />
+                  <h3 className="recipes-title">{recipe.recipes}</h3>
+                </button>
+                <button
+                  onClick={() => toggleFavorite(recipe)}
+                  className="favorite-heart-btn"
+                  aria-label={isFavorite ? "Remove from favorites" : "Add to favorites"}
+                >
+                  {isFavorite ? '❤️' : '🤍'}
+                </button>
+              </div>
+            );
+          })
         ) : (
           !loading && searchPerformed && ( 
             <p className="no-results">No results found. Try a different search.</p>

@@ -24,26 +24,24 @@ const FilterComponent = ({ onFilterChange }) => {
     setSelectedCategory(category);
     onFilterChange(category);
   };
+return (
+  <div className="filter-component">
+    <div style={{ color: 'red' }}></div>
+    <select 
+      value={selectedCategory} 
+      onChange={handleCategoryChange}
+      className="category-select"
+    >
+      <option value="">All Categories</option>
+      {categories.map((category) => (
+        <option key={category} value={category}>
+          {category}
+        </option>
+      ))}
+    </select>
+  </div>
+);
 
-  return (
-    <div className="filter-component">
-      <select 
-        value={selectedCategory} 
-        onChange={handleCategoryChange}
-        className="category-select"
-      >
-        <option value="">All Categories</option>
-        {categories.map((category) => (
-          <option key={category} value={category}>
-            {category}
-          </option>
-        ))}
-      </select>
-      {selectedCategory && (
-        <p className="selected-category">Selected Category: {selectedCategory}</p>
-      )}
-    </div>
-  );
 };
 
 export default FilterComponent;

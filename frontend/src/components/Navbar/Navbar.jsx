@@ -38,6 +38,12 @@ const Navbar = () => {
         >
           About Us
         </button>
+        <button
+          onClick={() => handleNavigation("/favorites", false)}
+          aria-label="Favorites Page"
+        >
+          Favorites
+        </button>
       </div>
     </nav>
   );
