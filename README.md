@@ -36,7 +36,7 @@ You can use tools like Postman or curl to interact with the API endpoints.
 
 ##  Accessibility and SEO
 
-I used semantic HTML elements such as <main>, <nav>, and <header> throughout my frontend to improve accessibility. I provided descriptive alt text for all images and ensured that the application can be navigated using only the keyboard. To enhance SEO, I dynamically set page titles and meta descriptions where appropriate. I also included ARIA attributes where necessary to support users who rely on screen readers.
+I used semantic HTML elements such as `<main>`, `<nav>`, and `<header>` throughout my frontend to improve accessibility. I provided descriptive alt text for all images and ensured that the application can be navigated using only the keyboard. To enhance SEO, I dynamically set page titles and meta descriptions where appropriate. I also included ARIA attributes where necessary to support users who rely on screen readers.
 To optimize performance, I used Google Lighthouse to analyze the frontend. 
 
 
