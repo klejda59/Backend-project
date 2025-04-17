@@ -67,4 +67,13 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 
 ### `npm run build` fails to minify
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+
+
+1. Accessibility and SEO
+I used semantic HTML elements such as <main>, <nav>, and <header> throughout my frontend to improve accessibility. I provided descriptive alt text for all images and ensured that the application can be navigated using only the keyboard. To enhance SEO, I dynamically set page titles and meta descriptions where appropriate. I also included ARIA attributes where necessary to support users who rely on screen readers.
+
+2. Tracking-privacy
+I implemented simple pageview tracking using Google Analytics because it respects user privacy and does not use cookies or collect personal data. This helps me understand how users interact with the application while remaining compliant with GDPR. I also make sure users are informed about this tracking in the privacy notice.
+
+3.Security
+y project could be vulnerable to Cross-Site Scripting (XSS) and NoSQL Injection. To mitigate XSS, I rely on React’s default escaping and avoid using dangerouslySetInnerHTML. All user input is validated and sanitized before rendering. For NoSQL Injection, I check that all MongoDB IDs are valid using mongoose.Types.ObjectId.isValid() before querying, and I use strict Mongoose schemas to enforce data types. I also set CORS headers to restrict API access and regularly check dependencies with npm audit to address known vulnerabilities. If I add authentication, I will use HTTP-only cookies for sensitive tokens.
