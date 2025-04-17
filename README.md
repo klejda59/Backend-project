@@ -20,17 +20,17 @@ You can use tools like Postman or curl to interact with the API endpoints.
 ## Getting Started
 
 1. Clone the repository:
-         git clone 
+         `git clone `
 
 2. Install dependencies:
-         npm install
+         `npm install`
 
 3. Start the backend server:
-         npm run server
-         node server.js
+         `npm run server`
+         `node server.js`
 
 4. Start the frontend:
-         npm start
+         ` npm start`
 
 
 
