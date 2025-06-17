@@ -3,8 +3,6 @@ import axios from 'axios';
 import './SearchBar.css';
 
 const SearchBar = ({
-  favorites = [],
-  toggleFavorite,
   setSearchResults,
   setSearchActive
 }) => {

@@ -5,7 +5,7 @@ import FilterComponent from '../Filter/FilterComponent';
 import SearchBar from '../SearchBar/SearchBar';
 import './HomePage.css';
 
-const HomePage = ({ favorites, toggleFavorite }) => {
+const HomePage = () => {
   const [recipes, setRecipes] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -54,8 +54,6 @@ const HomePage = ({ favorites, toggleFavorite }) => {
   return (
     <div className="home-page">
       <SearchBar
-        favorites={favorites}
-        toggleFavorite={toggleFavorite}
         setSearchResults={setSearchResults}
         setSearchActive={setSearchActive}
       />
