@@ -18,9 +18,9 @@ const recipeSchema = new mongoose.Schema({
     ref: 'Category',
     required: true
   },
-  createdAt: { 
-    type: Date, 
-    default: Date.now 
+  image: { 
+    type: String, 
+    required: false
   }
 });
 

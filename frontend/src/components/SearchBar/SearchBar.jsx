@@ -53,18 +53,9 @@ const SearchBar = ({ favorites = [], toggleFavorite }) => {
           type="text"
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
-          placeholder="Type a recipes name, ingredient, or letter..."
+          placeholder="Search"
           className="search-input"
         />
-        <select
-          value={searchType}
-          onChange={(e) => setSearchType(e.target.value)}
-          className="search-select"
-        >
-          <option value="name">By Name</option>
-          <option value="ingredient">By Ingredient</option>
-          <option value="firstLetter">By First Letter</option>
-        </select>
         <button type="submit" className="search-button">
           Search
         </button>

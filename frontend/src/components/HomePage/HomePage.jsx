@@ -1,3 +1,4 @@
+// src/components/HomePage/HomePage.js
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import RecipeCard from '../RecipeCard/RecipeCard';
@@ -5,7 +6,7 @@ import FilterComponent from '../Filter/FilterComponent';
 import SearchBar from '../SearchBar/SearchBar';
 import './HomePage.css';
 
-const HomePage = ({ favorites, toggleFavorite }) => { // Accept as props
+const HomePage = ({ favorites, toggleFavorite }) => {
   const [recipes, setRecipes] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -18,17 +19,16 @@ const HomePage = ({ favorites, toggleFavorite }) => { // Accept as props
       setError(null);
       try {
         const response = await axios.get('http://localhost:3000/recipes');
-        setRecipes(response.data.recipes || []);
-      } catch (err) {
-        setError('Failed to fetch recipes.');
-        console.error(err);
-      } finally {
-        setLoading(false);
-      }
-    };
-    fetchRecipes();
-  }, []);
-
+   setRecipes(response.data); // response.data is the array
+    } catch (err) {
+      setError('Failed to fetch recipes.');
+      console.error(err);
+    } finally {
+      setLoading(false);
+    }
+  };
+  fetchRecipes();
+}, []);
   const handleFilterChange = (category) => {
     setSelectedCategory(category);
   };
@@ -49,11 +49,11 @@ const HomePage = ({ favorites, toggleFavorite }) => { // Accept as props
       <SearchBar 
         searchTerm={searchTerm}
         onSearchTermChange={setSearchTerm}
-        favorites={favorites}                // Pass favorites
-        toggleFavorite={toggleFavorite}      // Pass toggleFavorite
+        favorites={favorites}
+        toggleFavorite={toggleFavorite}
       />
-      <FilterComponent 
-        onFilterChange={handleFilterChange} 
+      <FilterComponent
+        onFilterChange={handleFilterChange}
         selectedCategory={selectedCategory}
       />
       {selectedCategory && (
@@ -62,15 +62,13 @@ const HomePage = ({ favorites, toggleFavorite }) => { // Accept as props
         </h2>
       )}
       <div className="recipe-grid">
-        {filteredRecipes.map(recipe => (
-          <RecipeCard
-            key={recipe.idrecipes}
-            recipe={recipe}
-            favorites={favorites}            // Pass favorites
-            toggleFavorite={toggleFavorite}  // Pass toggleFavorite
-          />
-        ))}
-      </div>
+  {recipes.map(recipe => (
+    <RecipeCard
+      key={recipe._id || recipe.idrecipes}
+      recipe={recipe}
+    />
+  ))}
+</div>
     </div>
   );
 };
