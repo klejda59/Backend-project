@@ -1,4 +1,3 @@
-// src/components/HomePage/HomePage.js
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import RecipeCard from '../RecipeCard/RecipeCard';
@@ -19,25 +18,43 @@ const HomePage = ({ favorites, toggleFavorite }) => {
       setError(null);
       try {
         const response = await axios.get('http://localhost:3000/recipes');
-   setRecipes(response.data); // response.data is the array
-    } catch (err) {
-      setError('Failed to fetch recipes.');
-      console.error(err);
-    } finally {
-      setLoading(false);
-    }
-  };
-  fetchRecipes();
-}, []);
+        setRecipes(response.data);
+      } catch (err) {
+        setError('Failed to fetch recipes.');
+        console.error(err);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchRecipes();
+  }, []);
+
   const handleFilterChange = (category) => {
     setSelectedCategory(category);
   };
 
   const filteredRecipes = recipes.filter(recipe => {
-    const matchesCategory = selectedCategory ? recipe.category === selectedCategory : true;
+    const matchesCategory = selectedCategory
+      ? recipe.category &&
+        recipe.category.trim().toLowerCase() === selectedCategory.trim().toLowerCase()
+      : true;
+
+    // Debugging: See what's being compared
+    if (selectedCategory) {
+      console.log(
+        'Comparing recipe.category:',
+        recipe.category,
+        'with selectedCategory:',
+        selectedCategory,
+        '=>',
+        matchesCategory
+      );
+    }
+
     const matchesSearch = searchTerm
       ? recipe.name.toLowerCase().includes(searchTerm.toLowerCase())
       : true;
+
     return matchesCategory && matchesSearch;
   });
 
@@ -62,13 +79,13 @@ const HomePage = ({ favorites, toggleFavorite }) => {
         </h2>
       )}
       <div className="recipe-grid">
-  {recipes.map(recipe => (
-    <RecipeCard
-      key={recipe._id || recipe.idrecipes}
-      recipe={recipe}
-    />
-  ))}
-</div>
+        {filteredRecipes.map(recipe => (
+          <RecipeCard
+            key={recipe._id}
+            recipe={recipe}
+          />
+        ))}
+      </div>
     </div>
   );
 };

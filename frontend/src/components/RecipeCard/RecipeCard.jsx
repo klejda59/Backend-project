@@ -18,8 +18,9 @@ const RecipeCard = ({ recipe }) => (
       src={recipe.image}
       alt={recipe.name}
       style={{ width: '100%', borderRadius: '10px' }}
-    />
-    <Link
+    /> 
+    <br></br>
+        <Link
       to={`/recipes/${recipe._id}`}
       style={{ textDecoration: 'none', color: '#007BFF' }}
     >

@@ -2,46 +2,39 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import './FilterComponent.css';
 
-const FilterComponent = ({ onFilterChange }) => {
+const FilterComponent = ({ onFilterChange, selectedCategory }) => {
   const [categories, setCategories] = useState([]);
-  const [selectedCategory, setSelectedCategory] = useState('');
 
   useEffect(() => {
     const fetchCategories = async () => {
       try {
-        const response = await axios.get('http://localhost:3000/categories'); // Categories endpoint
-        setCategories(response.data); // Assuming the API returns an array of strings or objects with category names
+        const response = await axios.get('http://localhost:3000/categories');
+        setCategories(response.data);
       } catch (error) {
         console.error('Error fetching categories:', error);
       }
     };
-
     fetchCategories();
   }, []);
 
   const handleCategoryChange = (e) => {
-    const category = e.target.value;
-    setSelectedCategory(category);
-    onFilterChange(category);
+    onFilterChange(e.target.value);
   };
-return (
-  <div className="filter-component">
-    <div style={{ color: 'red' }}></div>
-    <select 
-      value={selectedCategory} 
-      onChange={handleCategoryChange}
-      className="category-select"
-    >
-      <option value="">All Categories</option>
-      {categories.map((category) => (
-        <option key={category} value={category}>
-          {category}
-        </option>
-      ))}
-    </select>
-  </div>
-);
 
+  return (
+    <div className="filter-component">
+      <select
+        value={selectedCategory}
+        onChange={handleCategoryChange}
+        className="category-select"
+      >
+        <option value="">All Categories</option>
+        {categories.map(cat => (
+          <option key={cat.name} value={cat.name}>{cat.name}</option>
+        ))}
+      </select>
+    </div>
+  );
 };
 
 export default FilterComponent;
