@@ -15,7 +15,23 @@ router.post('/', async (req, res) => {
 
 router.get('/', async (req, res) => {
   try {
-    const recipes = await Recipe.find();
+    const { name, ingredient, firstLetter } = req.query;
+    let filter = {};
+
+    if (name) {
+      // Case-insensitive search for name
+      filter.name = { $regex: new RegExp(name, 'i') };
+    }
+    if (ingredient) {
+      // Search for ingredient in ingredients array
+      filter.ingredients = { $elemMatch: { $regex: new RegExp(ingredient, 'i') } };
+    }
+    if (firstLetter) {
+      // Name starts with firstLetter (case-insensitive)
+      filter.name = { $regex: new RegExp('^' + firstLetter, 'i') };
+    }
+
+    const recipes = await Recipe.find(filter);
     res.json(recipes);
   } catch (err) {
     res.status(500).json({ error: err.message });

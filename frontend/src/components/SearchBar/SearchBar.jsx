@@ -2,12 +2,15 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import './SearchBar.css';
 
-const SearchBar = ({ favorites = [], toggleFavorite }) => {
+const SearchBar = ({
+  favorites = [],
+  toggleFavorite,
+  setSearchResults,
+  setSearchActive
+}) => {
   const [searchTerm, setSearchTerm] = useState('');
-  const [searchType, setSearchType] = useState('name');
-  const [searchResults, setSearchResults] = useState([]);
+  const [searchType, ] = useState('name');
   const [loading, setLoading] = useState(false);
-  const [searchPerformed, setSearchPerformed] = useState(false); 
 
   const handlerecipesClick = (recipesId) => {
     window.location.href = `/recipes/${recipesId}`;
@@ -34,15 +37,22 @@ const SearchBar = ({ favorites = [], toggleFavorite }) => {
 
     try {
       setLoading(true);
-      setSearchPerformed(true); 
+      setSearchActive(true); // Tell parent search is active
       const response = await axios.get(url);
-      setSearchResults(response.data.recipes || response.data || []);
+      setSearchResults(response.data || []);
     } catch (error) {
       console.error('Error fetching search results:', error);
       setSearchResults([]);
     } finally {
       setLoading(false);
     }
+  };
+
+  // Optional: handle clearing search
+  const handleClearSearch = () => {
+    setSearchTerm('');
+    setSearchResults([]);
+    setSearchActive(false);
   };
 
   return (
@@ -59,40 +69,16 @@ const SearchBar = ({ favorites = [], toggleFavorite }) => {
         <button type="submit" className="search-button">
           Search
         </button>
+        <button
+          type="button"
+          className="clear-search-button"
+          onClick={handleClearSearch}
+          style={{ marginLeft: '10px' }}
+        >
+          Clear
+        </button>
       </form>
-
       {loading && <p className="loading-text">Loading...</p>}
-
-      <div className="search-results">
-        {searchResults.length > 0 ? (
-          searchResults.map((recipe) => {
-            const isFavorite = favorites.some(r => r._id === recipe._id);
-            return (
-              <div key={recipe._id} className="recipes-item improved-recipe-card">
-                <button 
-                  onClick={() => handlerecipesClick(recipe._id)}
-                  className="recipe-main-btn"
-                  aria-label={`View details for ${recipe.recipes}`}
-                >
-                  <img src={recipe.recipesThumb} alt={recipe.recipes} className="recipes-image" />
-                  <h3 className="recipes-title">{recipe.recipes}</h3>
-                </button>
-                <button
-                  onClick={() => toggleFavorite(recipe)}
-                  className="favorite-heart-btn"
-                  aria-label={isFavorite ? "Remove from favorites" : "Add to favorites"}
-                >
-                  {isFavorite ? '❤️' : '🤍'}
-                </button>
-              </div>
-            );
-          })
-        ) : (
-          !loading && searchPerformed && ( 
-            <p className="no-results">No results found. Try a different search.</p>
-          )
-        )}
-      </div>
     </div>
   );
 };

@@ -10,7 +10,9 @@ const HomePage = ({ favorites, toggleFavorite }) => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [selectedCategory, setSelectedCategory] = useState('');
-  const [searchTerm, setSearchTerm] = useState('');
+  const [searchTerm] = useState('');
+  const [searchResults, setSearchResults] = useState([]);
+  const [searchActive, setSearchActive] = useState(false);
 
   useEffect(() => {
     const fetchRecipes = async () => {
@@ -39,18 +41,6 @@ const HomePage = ({ favorites, toggleFavorite }) => {
         recipe.category.trim().toLowerCase() === selectedCategory.trim().toLowerCase()
       : true;
 
-    // Debugging: See what's being compared
-    if (selectedCategory) {
-      console.log(
-        'Comparing recipe.category:',
-        recipe.category,
-        'with selectedCategory:',
-        selectedCategory,
-        '=>',
-        matchesCategory
-      );
-    }
-
     const matchesSearch = searchTerm
       ? recipe.name.toLowerCase().includes(searchTerm.toLowerCase())
       : true;
@@ -63,29 +53,47 @@ const HomePage = ({ favorites, toggleFavorite }) => {
 
   return (
     <div className="home-page">
-      <SearchBar 
-        searchTerm={searchTerm}
-        onSearchTermChange={setSearchTerm}
+      <SearchBar
         favorites={favorites}
         toggleFavorite={toggleFavorite}
+        setSearchResults={setSearchResults}
+        setSearchActive={setSearchActive}
       />
-      <FilterComponent
-        onFilterChange={handleFilterChange}
-        selectedCategory={selectedCategory}
-      />
-      {selectedCategory && (
-        <h2 className="selected-category-title">
-          Recipes in {selectedCategory} Category
-        </h2>
-      )}
-      <div className="recipe-grid">
-        {filteredRecipes.map(recipe => (
-          <RecipeCard
-            key={recipe._id}
-            recipe={recipe}
+
+      {searchActive ? (
+        <div className="search-results">
+          {searchResults.length > 0 ? (
+            searchResults.map(recipe => (
+              <RecipeCard
+                key={recipe._id}
+                recipe={recipe}
+              />
+            ))
+          ) : (
+            <p>No results found. Try a different search.</p>
+          )}
+        </div>
+      ) : (
+        <>
+          <FilterComponent
+            onFilterChange={handleFilterChange}
+            selectedCategory={selectedCategory}
           />
-        ))}
-      </div>
+          {selectedCategory && (
+            <h2 className="selected-category-title">
+              Recipes in {selectedCategory} Category
+            </h2>
+          )}
+          <div className="recipe-grid">
+            {filteredRecipes.map(recipe => (
+              <RecipeCard
+                key={recipe._id}
+                recipe={recipe}
+              />
+            ))}
+          </div>
+        </>
+      )}
     </div>
   );
 };
