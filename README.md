@@ -36,14 +36,13 @@ You can use tools like Postman or curl to interact with the API endpoints.
 
 ##  Accessibility and SEO
 
-I used semantic HTML elements such as `<main>`, `<nav>`, and `<header>` throughout my frontend to improve accessibility. I provided descriptive alt text for all images and ensured that the application can be navigated using only the keyboard. To enhance SEO, I dynamically set page titles and meta descriptions where appropriate. I also included ARIA attributes where necessary to support users who rely on screen readers.
+I used semantic HTML elements such as `<main>`, `<nav>`, and `<header>` throughout my frontend to improve accessibility. I provided descriptive alt text for all images and ensured that the application can be navigated using only the keyboard.  I also included ARIA attributes where necessary to support users who rely on screen readers.
 To optimize performance, I used Google Lighthouse to analyze the frontend. 
 
 
 ##  Tracking-privacy
 
-I implemented simple pageview tracking using Google Analytics because it respects user privacy and does not use cookies or collect personal data. This helps me understand how users interact with the application while remaining compliant with GDPR. I also make sure users are informed about this tracking in the privacy notice.
-
+I implemented simple pageview tracking using Google Analytics because it respects user privacy and does not  collect personal data. This helps me understand how users interact with the application while remaining compliant with GDPR. 
 
 ##  Security
 
