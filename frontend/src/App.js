@@ -7,6 +7,7 @@ import RecipeDetail from './components/RecipeDetail/RecipeDetail';
 import AboutUs from './components/AboutUs/AboutUs';
 import Footer from './components/Footer/Footer';
 import './App.css';
+import PrivacyPolicy from './components/PrivacyPolicy/PrivacyPolicy';
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
             <Route path="/" element={<HomePage />} />
             <Route path="/recipes/:id" element={<RecipeDetail />} />
             <Route path="/about" element={<AboutUs />} />
+            <Route path="/privacy" element={<PrivacyPolicy />} />
           </Routes>
         </main>
         <Footer />

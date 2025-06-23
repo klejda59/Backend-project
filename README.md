@@ -42,7 +42,7 @@ To optimize performance, I used Google Lighthouse to analyze the frontend.
 
 ##  Tracking-privacy
 
-I implemented simple pageview tracking using Google Analytics because it respects user privacy and does not  collect personal data. This helps me understand how users interact with the application while remaining compliant with GDPR. All analytics is anonymous.
+I implemented simple pageview tracking using Google Analytics because it respects user privacy .To protect privacy, I have enabled IP anonymization and do not collect personal data.Users are informed about tracking in the privacy policy.This helps me understand how users interact with the application while remaining compliant with GDPR. All analytics is anonymous.
 
 ##  Security
 
